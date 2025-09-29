@@ -1,0 +1,87 @@
+<div
+  class="container-fluid h-100 p-3 | applicationBackground applicationTextColor"
+>
+<% if (locals.successMsg) { %>
+  <div class="alert alert-success" role="alert">
+    <% for (let note of locals.successMsg) { %>
+    <p><%= note.msg %></p>
+    <% } %>
+  </div>
+  <% } %>
+<% if (locals.errorMsg) { %>
+<div class="alert alert-warning" role="alert">
+<% for (let err of locals.errorMsg) { %>
+<p><%= err.msg %></p>
+<% } %>
+</div>
+<% } %>
+  <div class="jobList">
+    <% if (locals.jobDetails) { for (let job of jobDetails) { %>
+    <div
+      class="m-3 rounded | job applicationComponentBackground applicationTextColor applicationBorder"
+    >
+      <div class="p-2 container-fluid rounded-top | jobCompanyDisplay applicationBackground">
+        <h3>
+          <i class="me-2 | fa-solid fa-industry"></i><%= job.companyName %>
+        </h3>
+      </div>
+      <div class="p-2 w-100 | jobDetails">
+        <table class="w-100 | jobDetailsTab">
+          <tbody>
+            <tr>
+              <th><i class="fa-solid fa-tag"></i></th>
+              <td>Category</td>
+              <td><%= job.jobCategory %></td>
+            </tr>
+            <tr>
+              <th><i class="fa-solid fa-briefcase"></i></th>
+              <td>Designation</td>
+              <td><%= job.jobDesignation %></td>
+            </tr>
+            <tr>
+              <th><i class="fa-solid fa-location-crosshairs"></i></th>
+              <td>Location</td>
+              <td><%= job.jobLocation %></td>
+            </tr>
+            <tr>
+              <th><i class="fa-solid fa-indian-rupee-sign"></i></th>
+              <td>Salary</td>
+              <td><%= job.Salary %> LPA</td>
+            </tr>
+            <tr>
+              <th><i class="fa-solid fa-hourglass-end"></i></th>
+              <td>Application End Date</td>
+              <td><%= job.applyBy %></td>
+            </tr>
+            <tr>
+              <th><i class="fa-solid fa-people-arrows"></i></th>
+              <td>No. of Openings</td>
+              <td><%= job.numberOfOpenings %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="p-2 w-100 | skillsDisplay">
+        <h5 class="mb-2">Required Skills</h5>
+        <div class="skillsRequiredDisplay">
+          <% for (let skill of job.skillsRequired) { %>
+          <div
+            class="p-1 me-1 mb-1 rounded | jobSkill applicationBackground applicationTextColor applicationBorder"
+          >
+            <%= skill %>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="container-fluid p-2 mb-1 | applyBtn">
+        <a
+          class="p-1 w-100 | btn btn-primary jobApplyBtn"
+          href="/jobs/<%= job.jobId %>"
+          role="button"
+          >View</a
+        >
+      </div>
+    </div>
+    <% } } %>
+  </div>
+</div>

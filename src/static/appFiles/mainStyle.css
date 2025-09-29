@@ -1,0 +1,243 @@
+:root {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --application-background: var(--bs-light);
+  --application-component-background: var(--bs-primary-bg-subtle);
+  --application-componenet-text: var(--bs-light-text-emphasis); 
+  background-color: var(--application-background) !important;
+}
+
+/* Utility */
+.applicationBackground {
+  background-color: var(--application-background) !important;
+}
+
+.applicationComponentBackground {
+  background-color: var(--application-component-background) !important;
+}
+
+.applicationTextColor {
+  color: var(--application-componenet-text) !important;
+}
+
+.applicationBorder {
+  border: 1px solid var(--application-componenet-text) !important;
+}
+
+/* Toggler */
+.themeTogller {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--application-component-background);
+  border-radius: 5px;
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--application-background);
+  border-radius: 34px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--application-component-background);
+  border-radius: 50%;
+  border: 1px solid var(--application-componenet-text);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+#themeToggleInput:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+#themeToggleInput, #jobFormSubmitBtn, #applyJobform {
+  display: none;
+}
+
+/* Search */
+input::placeholder {
+  color: var(--application-componenet-text) !important;
+}
+
+/* Sign In/Sign Up Form */
+/* Signin and Signup Forms */
+.form, #signin-tab, #signup-tab {
+  display: none; /* Hide both forms initially */
+}
+
+/* Show active form when radio button is checked */
+#signin-tab:checked ~ .signin-form,
+#signup-tab:checked ~ .signup-form {
+  display: block; /* Display the selected form */
+}
+
+#signin-form, #signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styles for text, password, and email inputs */
+input[type="text"], input[type="password"], input[type="email"] {
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+/* Styles for submit buttons */
+button[type="submit"] {
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  text-decoration: underline;
+}
+
+/* Styles for labels within the forms */
+.form-label {
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 4px 4px 0 0;
+}
+
+.form-label:hover {
+  text-decoration: underline;
+}
+
+/* Styles for paragraphs within the forms */
+.form-text {
+  font-size: 0.9em;
+}
+
+.form-text label:hover {
+  text-decoration: underline; /* Underline effect for switch links */
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  border-radius: 8px; /* Rounded corners for the container */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect for the container */
+}
+
+/* jobs page */
+
+.jobList {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.job {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-grow: 0;
+}
+
+.jobCompanyDisplay {
+  border-bottom-style: dotted;
+}
+
+.jobDetailsTab {
+  background-color: var(--application-component-background);
+  text-align: center;
+}
+
+.skillsDisplay {
+  border-bottom-style: dotted;
+  border-top-style: dotted;
+}
+
+.skillsRequiredDisplay {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.jobHeaders {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.companyDetails, .IndustryDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.companyDetails {
+  align-items: flex-start;
+}
+
+.IndustryDetails {
+  align-items: flex-end;
+}
+
+.contentHeading {
+  line-height: 35px;
+  font-size: 32px;
+}
+
+.contentDisplay {
+  line-height: 17px;
+  font-size: 17px;
+}
+
+.addSkillDisplay, .jobDetailsDisplay {
+  line-height: 20px;
+  font-size: 20px;
+}
+
+.jobDetailsDisplay td {
+  padding: 5px;
+}
+
+.applyJobformContainer {
+  background-color: rgba(245, 253, 255, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

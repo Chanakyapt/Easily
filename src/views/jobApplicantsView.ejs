@@ -1,0 +1,57 @@
+<div class="position-relative container h-100 p-3 | applicationBackground applicationTextColor">
+  <div class="mb-2 | jobHeaders">
+    <div class="companyDetails">
+      <div class="mb-2 | contentHeading">
+        <%= locals.jobDetails.companyName %>
+      </div>
+      <div class="mb-2 | contentDisplay">
+        Posted By: <%= locals.jobDetails.createdBy %>
+      </div>
+    </div>
+    <div class="IndustryDetails">
+      <div class="mb-2 | contentHeading">
+        <%= locals.jobDetails.jobDesignation %>
+      </div>
+      <div class="mb-2 | contentDisplay">
+        Job Category: <%= locals.jobDetails.jobCategory %>
+      </div>
+    </div>
+  </div>
+  <% if (locals.jobDetails) { %> 
+    <h3>Applicants:</h3>
+    <table class="w-100" style="text-align: center;">
+      <tr>
+        <th>Applicant ID</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>Resume</th>
+      </tr>
+      <% for (let applicant of locals.jobDetails.applicants) { %>
+        <tr>
+          <td><%= applicant.applicantId %></td>
+          <td><%= applicant.name %></td>
+          <td><%= applicant.email %></td>
+          <td><%= applicant.contact %></td>
+          <td><a href="<%= applicant.resumePath %>" target="_blank"><%= applicant.resumeName %></a></td>
+        </tr>
+        <% } %>
+    </table>
+    <% } %>
+</div>
+<% if (locals.successMsg) { %>
+  <div class="alert alert-success" role="alert">
+    <% for (let note of locals.successMsg) { %>
+    <p><%= note.msg %></p>
+    <% } %>
+  </div>
+  <% } %>
+<% if (locals.errorMsg) { %>
+<div class="alert alert-warning" role="alert">
+<% for (let err of locals.errorMsg) { %>
+<p><%= err.msg %></p>
+<% } %>
+</div>
+<% } %>
+
+

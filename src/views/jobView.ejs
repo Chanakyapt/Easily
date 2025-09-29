@@ -1,0 +1,159 @@
+<div class="position-relative container h-100 p-3 | applicationBackground applicationTextColor">
+  <div class="mb-2 | jobHeaders">
+    <div class="companyDetails">
+      <div class="mb-2 | contentHeading">
+        <%= locals.jobDetails.companyName %>
+      </div>
+      <div class="mb-2 | contentDisplay">
+        Posted By: <%= locals.jobDetails.createdBy %>
+      </div>
+    </div>
+    <div class="IndustryDetails">
+      <div class="mb-2 | contentHeading">
+        <%= locals.jobDetails.jobDesignation %>
+      </div>
+      <div class="mb-2 | contentDisplay">
+        Job Category: <%= locals.jobDetails.jobCategory %>
+      </div>
+    </div>
+  </div>
+  <div class="mb-2 pb-2 w-100 | skillsDisplay">
+    <h4 class="my-2">Required Skills</h4>
+    <div id="skillsRequiredDisplay" class="skillsRequiredDisplay">
+      <% for (let skill of locals.jobDetails.skillsRequired) { %>
+      <div
+        class="p-1 me-1 mb-1 rounded | jobSkill applicationBackground applicationTextColor applicationBorder"
+      >
+        <%= skill %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+  <div class="mb-2 | jobDetailsDisplay">
+    <table>
+      <tr>
+        <td style="text-align: center;">
+          <label for="jobLocation"
+            ><i class="me-1 | fa-solid fa-location-crosshairs"></i
+          ></label>
+        </td>
+        <td>
+          <label for="jobLocation">Location</label>
+        </td>
+        <td><%= locals.jobDetails.jobLocation %></td>
+      </tr>
+      <tr>
+        <td style="text-align: center;">
+          <label for="Salary"
+            ><i class="me-1 | fa-solid fa-indian-rupee-sign"></i
+          ></label>
+        </td>
+        <td>
+          <label for="Salary">Salary</label>
+        </td>
+        <td><%= locals.jobDetails.Salary %> LPA</td>
+      </tr>
+      <tr>
+        <td style="text-align: center;">
+          <label for="applyBy"
+            ><i class="me-1 | fa-solid fa-hourglass-end"></i
+          ></label>
+        </td>
+        <td>
+          <label for="applyBy">Application End Date</label>
+        </td>
+        <td><%= locals.jobDetails.applyBy %></td>
+      </tr>
+      <tr>
+        <td style="text-align: center;">
+          <label for="numberOfOpenings"
+            ><i class="me-1 | fa-solid fa-people-arrows"></i>
+          </label>
+        </td>
+        <td>
+          <label for="numberOfOpenings">No. of Openings </label>
+        </td>
+        <td><%= locals.jobDetails.numberOfOpenings %></td>
+      </tr>
+    </table>
+  </div>
+  <% if (locals.userData === "Recruiter") { %>
+  <a
+    class="p-1 mb-2 w-100 | btn btn-secondary jobApplyBtn"
+    href="/jobs/update/<%= locals.jobDetails.jobId %>"
+    role="button"
+    >Update/Delete</a
+  >
+  <a
+    class="p-1 w-100 | btn btn-primary jobApplyBtn"
+    href="/jobs/viewApplicants/<%= locals.jobDetails.jobId %>"
+    role="button"
+    >View Applicants: <%= locals.jobDetails.applicants.length %></a
+  >
+  <% } else { const applyByDateSplit = locals.jobDetails.applyBy.split("/");
+  const applyByDate = Number(applyByDateSplit[0]); const applyByMonth =
+  Number(applyByDateSplit[1]) - 1; const applyByYear =
+  Number(applyByDateSplit[2]); if (new Date() > new Date(applyByYear,
+  applyByMonth, applyByDate)) { %>
+
+  <button id="jobApplyBtn" type="button" class="p-1 w-100 | btn btn-primary" disabled>Apply</button>
+  <% } else { %>
+  <button id="jobApplyBtn" type="button" class="mb-2 p-1 w-100 | btn btn-primary" onclick="displayApplicationForm()">Apply</button>
+  <div id="applyJobform" class="applicationTextColor applyJobformContainer">
+    <div class="jobApplyForm">
+      <form action="/apply/<%= locals.jobDetails.jobId %>" enctype="multipart/form-data" method="post">
+        <input
+          class="w-100 p-3 mb-3 | applicationBackground applicationTextColor"
+          type="text"
+          name="fullname"
+          placeholder="Full Name"
+          required
+        />
+        <input
+          class="w-100 p-3 mb-3 | applicationBackground applicationTextColor"
+          type="email"
+          name="email"
+          placeholder="Email Address"
+          required
+        />
+        <input
+          class="w-100 p-3 mb-3 | applicationBackground applicationTextColor"
+          type="number"
+          name="contact"
+          placeholder="contact"
+          required
+        />
+        <input
+          class="w-100 p-3 mb-3 | applicationBackground applicationTextColor"
+          type="file"
+          name="resume"
+          placeholder="Upload Resume"
+          required
+        />
+        <button
+          class="w-100 p-3 mb-3 | applicationBackground applicationTextColor applicationBorder"
+          type="submit"
+        >
+          Apply
+        </button>
+      </form>
+    </div>
+  </div>
+<% } } %>
+</div>
+<% if (locals.successMsg) { %>
+  <div class="alert alert-success" role="alert">
+    <% for (let note of locals.successMsg) { %>
+    <p><%= note.msg %></p>
+    <% } %>
+  </div>
+  <% } %>
+<% if (locals.errorMsg) { %>
+<div class="alert alert-warning" role="alert">
+<% for (let err of locals.errorMsg) { %>
+<p><%= err.msg %></p>
+<% } %>
+</div>
+<% } %>
+
+

@@ -1,0 +1,198 @@
+<div class="container h-100 p-3 | applicationBackground applicationTextColor">
+  <form id="jobForm" class="mb-2 | JobForm" action="/jobs" method="post" autocomplete="off">
+    <div class="mb-2 | jobHeaders">
+      <div class="companyDetails">
+        <div class="mb-2 | contentHeading">
+          <input
+            class="border border-warning | applicationComponentBackground applicationTextColor"
+            id="companyName"
+            name="companyName"
+            type="text"
+            style="field-sizing: content"
+            placeholder="Enter Company Name"
+            <% if (locals.jobDetails) { %>value="<%= locals.jobDetails.companyName %>"<% } %>
+            required
+          />
+        </div>
+        <div class="mb-2 | contentDisplay">
+          Posted By: <%= locals.createdBy %>
+        </div>
+      </div>
+      <div class="IndustryDetails">
+        <div class="mb-2 | contentHeading">
+          <input
+            class="border border-warning | applicationComponentBackground applicationTextColor"
+            id="jobDesignation"
+            name="jobDesignation"
+            type="text"
+            style="field-sizing: content"
+            placeholder="Enter Job Designation"
+            <% if (locals.jobDetails) { %>value="<%= locals.jobDetails.jobDesignation %>"<% } %>
+            required
+          />
+        </div>
+        <div class="mb-2 | contentDisplay">
+          Job Category:
+          <input
+            class="border border-warning | applicationComponentBackground applicationTextColor"
+            id="jobCategory"
+            name="jobCategory"
+            type="text"
+            style="field-sizing: content"
+            placeholder="Enter Job Category"
+            <% if (locals.jobDetails) { %>value="<%= locals.jobDetails.jobCategory %>"<% } %>
+            required
+          />
+        </div>
+      </div>
+    </div>
+    <div class="mb-2 pb-2 w-100 | skillsDisplay">
+      <h4 class="my-2">Required Skills</h4>
+      <div class="mb-2 addSkillDisplay">
+        <label for="addSkillInput">Add Skill:</label>
+        <input
+          class="border border-warning | applicationComponentBackground applicationTextColor"
+          id="addSkillInput"
+          type="text"
+          name="addSkillInput"
+          placeholder="Enter skill name"
+          style="field-sizing: content"
+        />
+        <input
+          class="border border-warning | applicationComponentBackground applicationTextColor"
+          id="skillsRequiredInput"
+          type="text"
+          name="skillsRequiredInput"
+          style="display: none;"
+        />
+        <span
+          class="rounded px-1 | applicationComponentBackground applicationTextColor applicationBorder"
+          id="addSkillbtn"
+          onclick="addSkill()"
+          style="cursor: pointer"
+          >Add</span
+        >
+      </div>
+      <div id="skillsRequiredDisplay" class="skillsRequiredDisplay">
+        <% if (locals.jobDetails) { 
+        let skillNumber = 1;
+        for (let skill of locals.jobDetails.skillsRequired) { %>
+            <div
+                id="Skill-<%= skillNumber %>"
+              class="p-1 me-1 mb-1 rounded | jobSkill applicationBackground applicationTextColor applicationBorder"
+            >
+              <%= skill %>
+              <span onclick="removeSkill('Skill-<%= skillNumber++ %>')" style="cursor:pointer;"><i class="ms-1 | fa-solid fa-circle-xmark" aria-hidden="true"></i></span>
+            </div>
+            <% } %>
+          <% } %>
+      </div>
+    </div>
+    <div class="mb-2 | jobDetailsDisplay">
+      <table>
+        <tr>
+          <td style="text-align: center">
+            <label for="jobLocation"
+              ><i class="me-1 | fa-solid fa-location-crosshairs"></i
+            ></label>
+          </td>
+          <td>
+            <label for="jobLocation">Location</label>
+          </td>
+          <td>
+            <input
+              class="border border-warning | applicationComponentBackground applicationTextColor"
+              id="jobLocation"
+              name="jobLocation"
+              type="text"
+              placeholder="Enter Job Location"
+              <% if (locals.jobDetails) { %>value="<%= locals.jobDetails.jobLocation %>"<% } %>
+              required
+            />
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <label for="Salary"
+              ><i class="me-1 | fa-solid fa-indian-rupee-sign"></i
+            ></label>
+          </td>
+          <td>
+            <label for="Salary">Salary</label>
+          </td>
+          <td>
+            <input
+              class="border border-warning | applicationComponentBackground applicationTextColor"
+              id="Salary"
+              name="Salary"
+              type="text"
+              placeholder="Enter Job Salary"
+              <% if (locals.jobDetails) { %>value="<%= locals.jobDetails.Salary %>"<% } %>
+              required
+            /> LPA
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <label for="applyBy"
+              ><i class="me-1 | fa-solid fa-hourglass-end"></i
+            ></label>
+          </td>
+          <td>
+            <label for="applyBy">Application End Date</label>
+          </td>
+          <td>
+            <% const jobEndDateMinArray = new
+            Date().toLocaleDateString().split("/"); const jobEndDateMin =
+            `${jobEndDateMinArray[2]}-${jobEndDateMinArray[1]}-${jobEndDateMinArray[0]}`;
+            %>
+            <input
+              class="border border-warning | applicationComponentBackground applicationTextColor"
+              id="applyBy"
+              name="applyBy"
+              type="date"
+              min="<%= jobEndDateMin %>"
+              <% if (locals.jobDetails) { %>value="<%= locals.jobDetails.applyBy %>"<% } %>
+              required
+            />
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <label for="numberOfOpenings"
+              ><i class="me-1 | fa-solid fa-people-arrows"></i>
+            </label>
+          </td>
+          <td>
+            <label for="numberOfOpenings">No. of Openings </label>
+          </td>
+          <td>
+            <input
+              class="border border-warning | applicationComponentBackground applicationTextColor"
+              id="numberOfOpenings"
+              name="numberOfOpenings"
+              type="text"
+              placeholder="Enter Job Openings"
+              <% if (locals.jobDetails) { %>value="<%= locals.jobDetails.numberOfOpenings %>"<% } %>
+              required
+            />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <a
+      id="submit-job-form-btn"
+      class="p-1 w-100 | btn btn-success jobApplyBtn"
+      role="button"
+      onclick="submitCreateJobForm()"
+      >Create</a
+    >
+  </form>
+  <% if (locals.errorMsg) { %>
+    <div class="alert alert-warning" role="alert">
+      <% for (let err of locals.errorMsg) { %>
+      <p><%= err.msg %></p>
+      <% } %>
+    </div>
+    <% } %>
+</div>
